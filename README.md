@@ -13,6 +13,7 @@ Features currently supported:
  - player.setTile
  - player.getPos
  - player.setPos
+ - player.execCommand
  - world.getHeight
  - entity.getTile
  - entity.setTile
@@ -26,6 +27,7 @@ Extra features(**):
  - getBlocks(x1,y1,z1,x2,y2,z2) has been implemented
  - getDirection, getRotation, getPitch functions - get the 'direction' players and entities are facing
  - getPlayerId(playerName) - get the entity of a player by name
+ - execCommand(command) - run a minecraft command
  - multiplayer support
    - name added as an option parameter to player calls
    - modded minecraft.py in python api library so player "name" can be passed on Minecraft.create(ip, port, name)
