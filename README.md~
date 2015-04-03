@@ -1,4 +1,4 @@
-RaspberryJuice - A Spigot plugin which implements the Minecraft Pi Socket API.
+RaspberryJuice - A Bukkit plugin which implements the Minecraft Pi Socket API.
 
 Features currently supported:
  - world.get/setBlock
@@ -46,4 +46,3 @@ Version history:
  - 1.4.2 - bug fixes
  - 1.5 - entity functions
  - 1.6 - added getPlayerId(playerName), getDirection, getRotation, getPitch
- - 1.7 - Forked bukkit project to port to Spigot.  Also added support for minecraft commands
