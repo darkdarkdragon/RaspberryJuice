@@ -29,7 +29,8 @@
             <artifactId>bukkit</artifactId>
             <version>${project.version}</version>
             <type>jar</type>
-            <scope>compile</scope>
+            <scope>system</scope>
+            <systemPath>c:/git/RaspberryJuice/bukkit-1.9-R0.1-SNAPSHOT.jar</systemPath>
         </dependency>
     </dependencies>
 </project>
