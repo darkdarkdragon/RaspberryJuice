@@ -116,6 +116,10 @@ public class RemoteSession {
 		//split string into args, handles , inside " i.e. ","
 		String[] args = line.substring(line.indexOf("(") + 1, line.length() - 1).split(",");
 		//System.out.println(methodName + ":" + Arrays.toString(args));
+		for (int i = 0; i < args.length; ++i) {
+			args[i] = args[i].trim();
+		}
+
 		handleCommand(methodName, args);
 	}
 
