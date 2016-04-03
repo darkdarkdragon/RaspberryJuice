@@ -10,6 +10,9 @@ import org.bukkit.block.*;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+//import com.stuffaboutcode.canaryraspberryjuice.CanaryCommand;
+//import com.stuffaboutcode.canaryraspberryjuice.Player;
+
 public class RemoteSession {
 
 	private Location origin;
@@ -113,8 +116,17 @@ public class RemoteSession {
 	protected void handleLine(String line) {
 		//System.out.println(line);
 		String methodName = line.substring(0, line.indexOf("("));
-		//split string into args, handles , inside " i.e. ","
-		String[] args = line.substring(line.indexOf("(") + 1, line.length() - 1).split(",");
+		String argString = line.substring(line.indexOf("(") + 1, line.length() - 1);
+		//split string into args, handles , inside " i.e. ","		
+		String[] args;
+		
+		if(methodName.equals("player.execCommand"))
+		{
+			args = new String[1];
+			args[0] = argString;
+		}
+		else
+			args = argString.split(",");
 		//System.out.println(methodName + ":" + Arrays.toString(args));
 		handleCommand(methodName, args);
 	}
@@ -134,6 +146,15 @@ public class RemoteSession {
 				send(world.getBlockTypeIdAt(loc));
 				
 			// world.getBlocks
+			} else if (c.equals("player.execCommand")) {
+				
+				Player p = getCurrentPlayer(null);				
+				if (p != null) 
+				{					
+					boolean r = server.dispatchCommand(p, args[0]);					
+				}				
+								
+			// world.getBlockWithData			
 			} else if (c.equals("world.getBlocks")) {
 				Location loc1 = parseRelativeBlockLocation(args[0], args[1], args[2]);
 				Location loc2 = parseRelativeBlockLocation(args[3], args[4], args[5]);
