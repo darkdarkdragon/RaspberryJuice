@@ -49,5 +49,7 @@ Version history:
  - 1.4.2 - bug fixes
  - 1.5 - entity functions
  - 1.6 - added getPlayerId(playerName), getDirection, getRotation, getPitch
- - 1.7 - added pollChatPosts() & block update performance improvements - 1.6 - added getPlayerId(playerName), getDirection, getRotation, getPitch
+ - 1.7 - added pollChatPosts() & block update performance improvements 
  - 1.7 - Forked bukkit project to port to Spigot.  Also added support for minecraft commands
+ - 1.8 - Merged. Added Spigot maven repo as dependency
+
