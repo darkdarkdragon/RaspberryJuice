@@ -128,6 +128,10 @@ public class RemoteSession {
 		else
 			args = argString.split(",");
 		//System.out.println(methodName + ":" + Arrays.toString(args));
+		for (int i = 0; i < args.length; ++i) {
+			args[i] = args[i].trim();
+		}
+
 		handleCommand(methodName, args);
 	}
 
@@ -277,8 +281,13 @@ public class RemoteSession {
 					name = args[0];
 				}
 				Player currentPlayer = getCurrentPlayer(name);
-				send(locationToRelative(currentPlayer.getLocation()));
-				
+
+				if (currentPlayer == null) {
+					send(String.format("Fail: unable to retrieve player with name '%s'", name));
+				} else {
+					send(locationToRelative(currentPlayer.getLocation()));
+				}
+
 			// player.setPos
 			} else if (c.equals("player.setPos")) {
 				String name = null, x = args[0], y = args[1], z = args[2];
@@ -287,9 +296,15 @@ public class RemoteSession {
 				}
 				
 				Player currentPlayer = getCurrentPlayer(name);
-				//get players current location, so when they are moved we will use the same pitch and yaw (rotation)
-				Location loc = currentPlayer.getLocation();
-				currentPlayer.teleport(parseRelativeLocation(x, y, z, loc.getPitch(), loc.getYaw()));
+
+				if (currentPlayer == null) {
+					send(String.format("Fail: unable to retrieve player with name '%s'", name));
+				} else {
+					//get players current location, so when they are moved we will use the same pitch and yaw (rotation)
+					Location loc = currentPlayer.getLocation();
+					currentPlayer.teleport(parseRelativeLocation(x, y, z, loc.getPitch(), loc.getYaw()));
+					send("OK");
+				}
 
 			// player.getDirection
 			} else if (c.equals("player.getDirection")) {
@@ -421,8 +436,9 @@ public class RemoteSession {
 			
 			plugin.getLogger().warning("Error occured handling command");
 			e.printStackTrace();
-			send("Fail");
-			
+			StringWriter writer = new StringWriter();
+			e.printStackTrace(new PrintWriter(writer));
+			send(String.format("Fail: %s", writer.toString().replaceAll(System.getProperty("line.separator"), "|")));
 		}
 	}
 
